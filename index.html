@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Download YouTube and Instagram videos including reels">
+    <meta name="keywords" content="download, youtube, downloader, instagram, reels, video, audio, mp3, song">
+    <meta name="author" content="Prasad Poojary">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/youtube.css">
+    <link rel="stylesheet" href="static/download.css">
+    <link rel="stylesheet" href="static/fontawesome/css/all.css">
+    <title>LOADBASE</title>
+    <link rel="icon" href="static/compact-disc-solid.svg" type="image/icon type">
+    <script src="static/jquery.js"></script>
+    <script src="static/anim.js"></script>
+
+</head>
+<body>
+    <section class="ajaxLoadContainer">
+        <div class="message-container" id="message-contID" style="z-index:99;">
+            <div class="message">
+                <p id="msgtxt" class="ajaxMessage"></p>
+                <button id='closeMsgBtn' onclick="closeMessage();">OK</button>
+            </div>
+        </div>
+    
+        <div class="head">
+            <h1>L<i class="fa fa-compact-disc" style="font-size: 25px;"></i>AD<span>BASE</span></h1>
+        </div>
+        
+        <div class="nav-container">
+            <ul>
+                <li><button class="instagram"><i class="fab fa-instagram"></i> Instagram</button></li>
+                <li><button class="youtube"><i class="fab fa-youtube"></i> YouTube</button></li>
+            </ul>
+        </div>
+
+        <div class="searchbar">
+            <form action="" method="GET">
+                <div class="form">
+                    <input placeholder="Paste your link" id="ajaxSearchText" />
+                    <button type="button" class="ajaxSearch"><a class="search"><i id="ajaxSearchBtn" class="fa fa-search"></i></a></button>
+                </div>
+            </form>
+        </div>
+
+        <div class="issue">
+            <p>Facing any issues ? feel free to <a href="mailto:prasadpoojary815@gmail.com">inform</a></p>
+        </div>
+
+        <div class="footer">
+            <p><span>Developed by</span> Prasad<span style="font-size: 11px;color:rgb(0, 255, 13);">&#x2764;</span>Poojary</p>
+        </div>
+    </section>
+   
+    <script>
+        function checkmessage()
+        {
+            if(document.getElementById("msgtxt").innerText.length>0)
+            {
+                document.getElementById("message-contID").style.display="flex";
+            }
+        }
+        checkmessage();
+
+        function closeMessage()
+        {
+            document.getElementById("message-contID").style.display="none";
+            document.getElementById("msgtxt").innerText="";
+        }
+
+        function message(str)
+        {
+            document.getElementById("msgtxt").innerHTML=str;
+            checkmessage();
+        }
+
+        function showVideo()
+        {
+            $('#videoID').css({'color':'#6b0000','box-shadow':'0px 0px 12px 1px #cccccc','background':'#fff'});
+            $('#audioID').css({ 'color':'#ffffff','background': 'linear-gradient(45deg, #a50101,#ff2515)'});
+            $('.audioContainer').css('display','none');
+            $('.videoContainer').css('display','block');
+        }
+
+        function showAudio()
+        {
+            $('#audioID').css({'color':'#6b0000','box-shadow':'0px 0px 12px 1px #cccccc','background':'#fff'});
+            $('#videoID').css({ 'color':'#ffffff','background': 'linear-gradient(45deg, #a50101,#ff2515)'}); 
+            $('.audioContainer').css('display','block');
+            $('.videoContainer').css('display','none');   
+        }
+
+        $('table td a').on('click',function(){
+            $(this).html("loading...");  
+        });  
+    </script>
+</body>
+</html>

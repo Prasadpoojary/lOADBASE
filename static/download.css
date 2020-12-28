@@ -1,0 +1,183 @@
+
+video::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+
+video::-webkit-media-controls-mute-button{
+    display: none;
+}
+
+
+/* video::-webkit-media-controls-timeline
+{
+    display:none;
+} */
+
+video::-webkit-media-controls-volume-control-hover-background
+{
+    display:none;
+}
+
+video::-webkit-media-controls-volume-slider
+{
+    display:none;
+}
+
+ video{ 
+     border-radius: 10px;
+     height:400px;
+     margin-bottom: 200px;
+
+}
+
+.video-container
+{
+    width:100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.instruction{
+    color:#807c7c;
+    margin-top:5px;
+    font-size: 12px;
+    width:100vw;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* other */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* code for message display */
+
+.message-container{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100vw;
+    height:100vh;
+    background:#000000ee;
+    display:flex;
+    z-index:99;
+    justify-content: center;
+    transition: .3s ease-in-out;
+    display: none;
+}
+
+.message{
+    position: relative;
+    margin-top: 100px;
+    width:300px;
+    padding:10px;
+    height:50px;
+    background:white;
+    font-weight: 500;
+    border-radius: 60px 60px 60px 0px;
+    box-shadow: 0px 0px 20px 2px #010014;
+}
+.message p{
+    position: absolute;
+    top:50%;
+    margin-left:20px;
+    transform: translateY(-50%);
+    font-size: 14px;
+}
+.message button{
+   position: absolute;
+   right:7px;
+   top:50%;
+   transform: translateY(-50%);
+   width:40px;
+   height:40px;
+   background:#9c0130;
+   outline:none;
+   color:white;
+   box-shadow: 0px 0px 2px 1px #920327;
+   border-radius: 50%;
+   border:none;
+}
+
+/* head */
+
+.head{
+    width:100vw;
+    padding:20px;
+}
+
+.head h1{
+    text-align: center;
+    color:#5f5d5d;
+}
+
+.head span{
+    color:#999999ef;
+   font-weight: 400;
+}
+
+/* issues */
+.issue
+{
+    width:100vw;
+    position: fixed;
+    bottom:40px;
+    padding-bottom:20px;
+    text-align: center;
+    font-size: 12px;
+    color:#504f4f;
+}
+
+.issue a{
+    text-decoration: none;
+    background:#ffffff;
+    color:#979797;
+    box-shadow: 0px 0px 12px 1px #d3d1d1;
+    padding:0px 10px;
+    padding-top:0px;
+    padding-bottom:2px;
+    border-radius:10px;
+}
+
+
+/* footer */
+.footer{
+    width:100vw;
+    text-align: center;
+    position: fixed;
+    bottom:0px;
+    padding:10px 0px;
+    background: #0c0027;
+    color:#d5c0fc;
+    font-size: 12px;
+}
+
+.footer p span{
+    color:#947af1;
+}
+
+@media screen and (max-width:500px)
+{
+    video{
+        width:90vw;
+       
+    }
+
+    
+.video-container
+{
+    width:100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+
+}
