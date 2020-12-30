@@ -165,7 +165,7 @@ table tr td span{
     color:white;
     font-size: 9px;
     position: absolute;
-    left:3px;
+    left:-5px;
     top:5px;
     font-weight: 600;
     background: green;
