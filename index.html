@@ -76,8 +76,13 @@
             checkmessage();
         }
 
+
+
         function showVideo()
         {
+            let music=new Audio();
+            music.src="static/onclick.mp3";
+            music.play();
             $('#videoID').css({'color':'#6b0000','box-shadow':'0px 0px 12px 1px #cccccc','background':'#fff'});
             $('#audioID').css({ 'color':'#ffffff','background': 'linear-gradient(45deg, #a50101,#ff2515)'});
             $('.audioContainer').css('display','none');
@@ -86,6 +91,9 @@
 
         function showAudio()
         {
+            let music=new Audio();
+            music.src="static/onclick.mp3";
+            music.play();
             $('#audioID').css({'color':'#6b0000','box-shadow':'0px 0px 12px 1px #cccccc','background':'#fff'});
             $('#videoID').css({ 'color':'#ffffff','background': 'linear-gradient(45deg, #a50101,#ff2515)'}); 
             $('.audioContainer').css('display','block');
