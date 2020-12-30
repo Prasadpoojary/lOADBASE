@@ -145,7 +145,7 @@ $(document).ready(function(){
                             videoList.forEach(video => {
                                 if(video.format=="720p")
                                 {
-                                    if(video.filesize=="null")
+                                    if(video.filesize=="null" || (video.filesize/1048576).toFixed(1)==0.0)
                                     {
                                         let child=$("<tr><td style='position:relative;'><span>HD</span>"+video.format+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b><td><form action='/download' method='get'><input name='url' type='hidden' value='"+video.url+"'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                         videoDOM.append(child);
@@ -158,7 +158,7 @@ $(document).ready(function(){
                                 }
                                 else
                                 {
-                                    if(video.filesize=="null")
+                                    if(video.filesize=="null" || (video.filesize/1048576).toFixed(1)==0.0)
                                     {
                                         let child=$("<tr><td>"+video.format+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b><td><form action='/download' method='get'><input name='url' type='hidden' value='"+video.url+"'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                         videoDOM.append(child);
@@ -180,7 +180,7 @@ $(document).ready(function(){
                         if(audioList.length!=0)
                         {
                             audioList.forEach(audio => {
-                                if(audio.filesize=="null")
+                                if(video.filesize=="null" || (audio.filesize/1048576).toFixed(1)==0.0)
                                 {
                                     let child=$("<tr><td>"+audio.type+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b></td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                     audioDOM.append(child);
