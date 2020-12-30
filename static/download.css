@@ -115,7 +115,10 @@ video::-webkit-media-controls-volume-slider
 .head h1{
     text-align: center;
     color:#5f5d5d;
+    font-size: 30px;
 }
+
+
 
 .head span{
     color:#999999ef;
