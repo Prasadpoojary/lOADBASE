@@ -180,7 +180,7 @@ $(document).ready(function(){
                         if(audioList.length!=0)
                         {
                             audioList.forEach(audio => {
-                                if(video.filesize=="null" || (audio.filesize/1048576).toFixed(1)==0.0)
+                                if(audio.filesize=="null" || (audio.filesize/1048576).toFixed(1)==0.0)
                                 {
                                     let child=$("<tr><td>"+audio.type+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b></td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                     audioDOM.append(child);
