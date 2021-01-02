@@ -173,6 +173,102 @@ table tr td span{
     border-radius:80% 80% 0px 80%;
 }
 
+/* settings */
+.settings
+{
+    text-align: center;
+}
+
+.settings p
+{
+    color:#504f4f;
+    font-size: 12px;
+}
+
+.settings p button
+{
+    background:white;
+    border:none;
+    outline:none;
+    font-size: 12px;
+    color:#920327;
+    border-radius: 15px;
+    padding:2px 10px;
+    box-shadow: 0px 0px 12px 1px #d3d1d1;
+    cursor: pointer;
+}
+
+.instruction-base
+{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100vw;
+    height:100vh;
+    background:#000000e1;
+    z-index: 99;
+    display:none;
+}
+
+.instruction
+{
+    position: absolute;
+    top:20%;
+    left:50%;
+    width:80vw;
+    max-width: 400px;
+    background:#fffdfd;
+    padding:30px;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    transform:translateX(-50%);
+    border-radius: 5px;
+}
+.instruction-MOBILEuser p, .instruction-PCuser p
+{
+    margin-top: 7px;
+}
+
+.instruction-MOBILEuser p span,.instruction-PCuser p span
+{
+    color:#a50101;
+    font-weight: 700;
+}
+
+.instruction i
+{
+    color:#11002c;
+}
+
+.instruction-MOBILEuser h3 i,.instruction-PCuser h3 i
+{
+    color:#575757;
+}
+
+.instruction button
+{
+    margin-top: 20px;
+    width:40px;
+    height:40px;
+    border-radius: 50%;
+    border:none;
+    outline:none;
+    background:#a50101;
+    color:#fff;
+    font-weight: 600;
+    line-height:40px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
 /* issues */
 .issue
 {
@@ -215,6 +311,8 @@ table tr td span{
 .footer p span{
     color:#947af1;
 }
+
+
 
 
 @media screen and (max-width:500px)
@@ -260,5 +358,32 @@ table tr td span{
         padding-bottom:5px;
         border-radius:15px;
     }
+
+    .settings p button
+{
+    background:white;
+    border:none;
+    outline:none;
+    font-size: 12px;
+    color:#920327;
+    border-radius: 15px;
+    padding:4px 10px;
+    box-shadow: 0px 0px 12px 1px #d3d1d1;
+    cursor: pointer;
+}
+.instruction
+{
+    position: absolute;
+    top:10%;
+    left:50%;
+    width:80vw;
+    max-width: 300px;
+    background:#fffdfd;
+    padding:30px;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    transform:translateX(-50%);
+    border-radius: 5px;
+}
 
 }

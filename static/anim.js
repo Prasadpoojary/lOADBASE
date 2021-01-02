@@ -2,6 +2,7 @@ $(document).ready(function(){
     var music=new Audio();
     music.src='static/onclick.mp3';
 
+
     $('.nav-container .instagram').on('click',function(){
         $(this).css({'color':'#6b0000','box-shadow':'0px 0px 12px 1px #cccccc','background':'#fff'});
         $('.nav-container .youtube').css({ 'color':'#ffffff','background': 'linear-gradient(45deg, #a50101,#ff2515)'});
@@ -12,8 +13,6 @@ $(document).ready(function(){
     });
 
     // next Page
-
-
     $('table td a').on('click',function(){
         $(this).html("loading...");  
     });
@@ -26,11 +25,12 @@ $(document).ready(function(){
         $('.issue , .footer').css('display','block');
     });
 
-
+  
     $('.instagram').on('click',function(){
-        music.play();
         $('.searchbar').css({"visibility":"visible","padding":"20px"});
         $('.ajaxSearch').attr('id','ajaxInstagram');
+        $('#ajaxSearchText').attr('placeholder','Paste your Instagram link');
+        music.play();
         $('#ajaxInstagram').on('click',function(){
             music.play();
             var query=$("#ajaxSearchText").val();
@@ -75,11 +75,12 @@ $(document).ready(function(){
             }
         });
     });
-
+    
     $('.youtube').on('click',function(){
         music.play();
         $('.searchbar').css({"visibility":"visible","padding":"20px"});
         $('.ajaxSearch').attr('id','ajaxYoutube');
+        $('#ajaxSearchText').attr('placeholder','Paste your YouTube link');
         $('#ajaxYoutube').on('click',function(){
             music.play();
             var query=encodeURIComponent($("#ajaxSearchText").val());
@@ -96,7 +97,8 @@ $(document).ready(function(){
                     type: "GET",
                     dataType: "json",
                     contentType: "application/json",
-                    url: "https://loadbase.pythonanywhere.com/youtube/api",
+                    //url: "https://loadbase.pythonanywhere.com/youtube/api",
+                    url:"https://loadbasedebug.herokuapp.com/youtube/api",
                     data: "url="+query,
                     success: function (response) {
                         $('#ajaxSearchBtn').removeClass();
@@ -182,13 +184,31 @@ $(document).ready(function(){
                             audioList.forEach(audio => {
                                 if(audio.filesize=="null" || (audio.filesize/1048576).toFixed(1)==0.0)
                                 {
-                                    let child=$("<tr><td>"+audio.type+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b></td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
-                                    audioDOM.append(child);
+                                    if(audio.type=="m4a")
+                                    {
+                                        audio.type="MP3";
+                                        let child=$("<tr><td style='position:relative;'><span><i class='fa fa-check'></i> </span>"+audio.type+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b></td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                        audioDOM.append(child);
+                                    }
+                                    else 
+                                    {
+                                        let child=$("<tr><td>"+audio.type+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b></td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                        audioDOM.append(child);
+                                    }
                                 }
                                 else 
                                 {
-                                    let child=$("<tr><td>"+audio.type+"</td><td>"+(audio.filesize/1048576).toFixed(1)+" MB</td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
-                                    audioDOM.append(child);
+                                    if(audio.type=="m4a")
+                                    {
+                                        audio.type="MP3";
+                                        let child=$("<tr><td style='position:relative;'><span><i class='fa fa-check'></i> </span>"+audio.type+"</td><td>"+(audio.filesize/1048576).toFixed(1)+" MB</td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                        audioDOM.append(child);
+                                    }
+                                    else 
+                                    {
+                                        let child=$("<tr><td>"+audio.type+"</td><td>"+(audio.filesize/1048576).toFixed(1)+" MB</td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                        audioDOM.append(child);
+                                    } 
                                 }
                             });   
                         }
@@ -197,6 +217,15 @@ $(document).ready(function(){
                             let child=$("<tr><td style='font-weight:600;'>Sorry, audio is not available</td><td><a href='https://en.savefrom.net/'>Try This</a></td></tr>");
                             audioDOM.append(child);
                         }
+
+                        $('.settings-button').on('click',function(){
+                            $('.instruction-base').css('display','block');
+                        });
+
+                        $('.settings-close-button').on('click',function(){
+                            $('.instruction-base').css('display','none');
+                        });
+                        
                        
 
                         $('.link').on('click',function(){
@@ -231,5 +260,5 @@ $(document).ready(function(){
             }
         });
     });
-
+    
 });
