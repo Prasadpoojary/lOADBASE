@@ -138,7 +138,7 @@ $(document).ready(function(){
                         });
 
                         $(document).ajaxError(function(){
-                            message("Something went wrong")
+                            message("Server under maintenance");
                             $('#ajaxSearchBtn').removeClass();
                             $('#ajaxSearchBtn').addClass("fa fa-search");
                             $('.ajaxSearch').attr("disabled", false);
