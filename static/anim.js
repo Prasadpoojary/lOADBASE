@@ -124,8 +124,8 @@ $(document).ready(function(){
                             type: "GET",
                             dataType: "json",
                             contentType: "application/json",
-                            url: "https://loadbase.pythonanywhere.com/youtube/api",
-                            //url:"https://loadbasedebug.herokuapp.com/youtube/api",
+                           // url: "https://loadbase.pythonanywhere.com/youtube/api",
+                            url:"https://loadbasedebug.herokuapp.com/youtube/api",
                             data: "url="+query,
                             success: function (response) {
                                 $('#ajaxSearchBtn').removeClass();
