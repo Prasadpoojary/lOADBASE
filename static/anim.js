@@ -1,75 +1,65 @@
-$(document).ready(function(){
-    var music=new Audio();
-    music.src='static/onclick.mp3';
+$(document).ready(function () {
+    var music = new Audio();
+    music.src = 'static/onclick.mp3';
 
-
-    $('.nav-container .instagram').on('click',function(){
-        $(this).css({'color':'#6b0000','box-shadow':'0px 0px 12px 1px #cccccc','background':'#fff'});
-        $('.nav-container .youtube').css({ 'color':'#ffffff','background': 'linear-gradient(45deg, #a50101,#ff2515)'});
-    });
-    $('.nav-container .youtube').on('click',function(){
-        $(this).css({'color':'#6b0000','box-shadow':'0px 0px 12px 1px #cccccc','background':'#fff'});
-        $('.nav-container .instagram').css({'color':"#ffffff",'background': 'linear-gradient(45deg, #a5016e,#c2170b)'});
-    });
 
     // next Page
-    $('table td a').on('click',function(){
-        $(this).html("loading...");  
-    });
-   
-    $('.searchbar .form input').on('focus',function(){
-        $('.issue , .footer').css('display','none');
+    $('table td a').on('click', function () {
+        $(this).html("loading...");
     });
 
-    $('.searchbar .form input').on('blur',function(){
-        $('.issue , .footer').css('display','block');
+    $('.searchbar .form input').on('focus', function () {
+        $('.issue , .footer').css('display', 'none');
     });
 
-    var isInsta=false;
-    var isYou=false;
-    var instaCount=0;
-    var youCount=0;
-    $('.instagram').on('click',function(){
-        isInsta=true;
-        isYou=false;
+    $('.searchbar .form input').on('blur', function () {
+        $('.issue , .footer').css('display', 'block');
+    });
+
+    var isInsta = false;
+    var isYou = false;
+    var instaCount = 0;
+    var youCount = 0;
+    $('.instagram').on('click', function () {
+        isInsta = true;
+        isYou = false;
         instaCount++;
+        $(this).addClass('button-active');
+        $('.nav-container .youtube').removeClass('button-active');
 
-        $(this).attr('disabled',true);
-        $('.youtube').attr('disabled',false);
-        $('.searchbar').css({"visibility":"visible","padding":"20px"});
-        $('.ajaxSearch').attr('id','ajaxInstagram');
-        $('#ajaxSearchText').attr('placeholder','Paste your Instagram link');
-        music.play();
-        $('#ajaxInstagram').on('click',function(){
-            if(isInsta)
-            {
-                while(instaCount>0)
-                {
+        $(this).attr('disabled', true);
+        $('.youtube').attr('disabled', false);
+        $('.searchbar').css({ "visibility": "visible", "padding": "20px" });
+        $('.ajaxSearch').attr('id', 'ajaxInstagram');
+        $('#ajaxSearchText').attr('placeholder', 'Paste your Instagram link');
+        music.play().then(() => {
+        }).catch(e => {
+        });
+        $('#ajaxInstagram').on('click', function () {
+            if (isInsta) {
+                while (instaCount > 0) {
                     music.play();
-                    var query=$("#ajaxSearchText").val();
-                    if(query.trim().length > 0)
-                    {
+                    var query = $("#ajaxSearchText").val();
+                    if (query.trim().length > 0) {
                         $('#ajaxSearchBtn').removeClass();
                         $('#ajaxSearchBtn').addClass("fas fa-spinner fa-spin");
                         $('.ajaxSearch').attr("disabled", true);
 
-                        query=query.includes('https://') ? query : "https://"+query;
+                        query = query.includes('https://') ? query : "https://" + query;
 
-                        var tail=query.includes('?') ? '&__a=1' : '?__a=1';
-                        
+                        var tail = query.includes('?') ? '&__a=1' : '?__a=1';
+
                         $.ajax({
                             type: "GET",
-                            url: query+tail,
+                            url: query + tail,
                             dataType: "json",
-                            success: function (response) 
-                            {
-                                window.location=response.graphql.shortcode_media.video_url+'&dl=1';
+                            success: function (response) {
+                                window.location = response.graphql.shortcode_media.video_url + '&dl=1';
                                 $('#ajaxSearchBtn').removeClass();
                                 $('#ajaxSearchBtn').addClass("fa fa-search");
                                 $('.ajaxSearch').attr("disabled", false);
                             },
-                            error: function()
-                            {
+                            error: function () {
                                 message('Something went wrong');
                                 $('#ajaxSearchBtn').removeClass();
                                 $('#ajaxSearchBtn').addClass("fa fa-search");
@@ -78,41 +68,39 @@ $(document).ready(function(){
 
                         });
                     }
-                    else
-                    {
+                    else {
                         message('invalid LINK');
                         $('#ajaxSearchBtn').removeClass();
                         $('#ajaxSearchBtn').addClass("fa fa-search");
                         $('.ajaxSearch').attr("disabled", false);
                     }
-                    instaCount=0;
+                    instaCount = 0;
                 }
             }
         });
-        
+
     });
 
     $('.instagram').click();
-    
-    $('.youtube').on('click',function(){
+
+    $('.youtube').on('click', function () {
         music.play();
-        isInsta=false;
-        isYou=true;
+        isInsta = false;
+        isYou = true;
         youCount++;
-        $(this).attr('disabled',true);
-        $('.instagram').attr('disabled',false);
-        $('.searchbar').css({"visibility":"visible","padding":"20px"});
-        $('.ajaxSearch').attr('id','ajaxYoutube');
-        $('#ajaxSearchText').attr('placeholder','Paste your YouTube link');
-        $('#ajaxYoutube').on('click',function(){
-            if(isYou)
-            {
-                while(youCount>0)
-                {
+        $(this).addClass('button-active');
+        $('.nav-container .instagram').removeClass('button-active');
+        $(this).attr('disabled', true);
+        $('.instagram').attr('disabled', false);
+        $('.searchbar').css({ "visibility": "visible", "padding": "20px" });
+        $('.ajaxSearch').attr('id', 'ajaxYoutube');
+        $('#ajaxSearchText').attr('placeholder', 'Paste your YouTube link');
+        $('#ajaxYoutube').on('click', function () {
+            if (isYou) {
+                while (youCount > 0) {
                     music.play();
-                    var query=encodeURIComponent($("#ajaxSearchText").val());
-                    if(decodeURIComponent(query).trim().length > 0)
-                    {
+                    var query = encodeURIComponent($("#ajaxSearchText").val());
+                    if (decodeURIComponent(query).trim().length > 0) {
                         $('#ajaxSearchBtn').removeClass();
                         $('#ajaxSearchBtn').addClass("fas fa-spinner fa-spin");
                         $('.ajaxSearch').attr("disabled", true);
@@ -124,152 +112,130 @@ $(document).ready(function(){
                             type: "GET",
                             dataType: "json",
                             contentType: "application/json",
-                           // url: "https://loadbase.pythonanywhere.com/youtube/api",
-                            url:"https://loadbasedebug.herokuapp.com/youtube/api",
-                            data: "url="+query,
+                            url: "https://loadbasedebug.herokuapp.com/youtube/api",
+                            data: "url=" + query,
                             success: function (response) {
                                 $('#ajaxSearchBtn').removeClass();
                                 $('#ajaxSearchBtn').addClass("fa fa-search");
                                 $('.ajaxSearch').attr("disabled", false);
                                 $('.ajaxLoadContainer').empty();
-                                re=response;
+                                re = response;
                                 $('.ajaxLoadContainer').load('youtube.html');
                             }
                         });
 
-                        $(document).ajaxError(function(){
+                        $(document).ajaxError(function () {
                             message("Server under maintenance");
                             $('#ajaxSearchBtn').removeClass();
                             $('#ajaxSearchBtn').addClass("fa fa-search");
                             $('.ajaxSearch').attr("disabled", false);
                         });
-                    
-                        var second_request=false;
+
+                        var second_request = false;
                         var ajax_url;
                         var ajax_type;
 
-                        $(document).ajaxStop(function(){
-                            if(second_request)
-                            {
+                        $(document).ajaxStop(function () {
+                            if (second_request) {
                                 message("Click on 3 dots to Download");
-                                $('#video source').attr('src',ajax_url);
-                                if(ajax_type=='/download')
-                                {
-                                    $('#video source').attr('type','video/mp4');
+                                $('#video source').attr('src', ajax_url);
+                                if (ajax_type == '/download') {
+                                    $('#video source').attr('type', 'video/mp4');
                                 }
-                                else 
-                                {
-                                    $('#video source').attr('type','audio/mp3');
+                                else {
+                                    $('#video source').attr('type', 'audio/mp3');
                                 }
                             }
-                            else 
-                            {
-                                let videoList=re.video;
-                                let audioList=re.audio;
-                                let videoDOM=$('.videoTableBody');
-                                let audioDOM=$('.audioTableBody');
+                            else {
+                                let videoList = re.video;
+                                let audioList = re.audio;
+                                let videoDOM = $('.videoTableBody');
+                                let audioDOM = $('.audioTableBody');
 
-                                if(videoList.length!=0)
-                                {
+                                if (videoList.length != 0) {
                                     videoList.forEach(video => {
-                                        if(video.format=="720p")
-                                        {
-                                            if(video.filesize=="null" || (video.filesize/1048576).toFixed(1)==0.0)
-                                            {
-                                                let child=$("<tr><td style='position:relative;'><span>HD</span>"+video.format+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b><td><form action='/download' method='get'><input name='url' type='hidden' value='"+video.url+"'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                        if (video.format == "720p") {
+                                            if (video.filesize == "null" || (video.filesize / 1048576).toFixed(1) == 0.0) {
+                                                let child = $("<tr><td style='position:relative;'><span>HD</span>" + video.format + "</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b><td><form action='/download' method='get'><input name='url' type='hidden' value='" + video.url + "'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                                 videoDOM.append(child);
                                             }
-                                            else 
-                                            {
-                                                let child=$("<tr><td style='position:relative;'><span>HD</span>"+video.format+"</td><td>"+(video.filesize/1048576).toFixed(1)+" MB</td><td><form action='/download' method='get'><input name='url' type='hidden' value='"+video.url+"'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                            else {
+                                                let child = $("<tr><td style='position:relative;'><span>HD</span>" + video.format + "</td><td>" + (video.filesize / 1048576).toFixed(1) + " MB</td><td><form action='/download' method='get'><input name='url' type='hidden' value='" + video.url + "'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                                 videoDOM.append(child);
                                             }
                                         }
-                                        else
-                                        {
-                                            if(video.filesize=="null" || (video.filesize/1048576).toFixed(1)==0.0)
-                                            {
-                                                let child=$("<tr><td>"+video.format+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b><td><form action='/download' method='get'><input name='url' type='hidden' value='"+video.url+"'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                        else {
+                                            if (video.filesize == "null" || (video.filesize / 1048576).toFixed(1) == 0.0) {
+                                                let child = $("<tr><td>" + video.format + "</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b><td><form action='/download' method='get'><input name='url' type='hidden' value='" + video.url + "'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                                 videoDOM.append(child);
                                             }
-                                            else 
-                                            {
-                                                let child=$("<tr><td>"+video.format+"</td><td>"+(video.filesize/1048576).toFixed(1)+" MB</td><td><form action='/download' method='get'><input name='url' type='hidden' value='"+video.url+"'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                            else {
+                                                let child = $("<tr><td>" + video.format + "</td><td>" + (video.filesize / 1048576).toFixed(1) + " MB</td><td><form action='/download' method='get'><input name='url' type='hidden' value='" + video.url + "'><button type='button' class='ajaxDownload' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                                 videoDOM.append(child);
                                             }
-                                        } 
+                                        }
                                     });
                                 }
-                                else 
-                                {
-                                    let child=$("<tr><td style='font-weight:600;'>Sorry, video is not available</td><td><a href='https://en.savefrom.net'>Try This</a></td></tr>");
+                                else {
+                                    let child = $("<tr><td style='font-weight:600;'>Sorry, video is not available</td><td><a href='https://en.savefrom.net'>Try This</a></td></tr>");
                                     videoDOM.append(child);
                                 }
-                            
-                                if(audioList.length!=0)
-                                {
+
+                                if (audioList.length != 0) {
                                     audioList.forEach(audio => {
-                                        if(audio.filesize=="null" || (audio.filesize/1048576).toFixed(1)==0.0)
-                                        {
-                                            if(audio.type=="m4a")
-                                            {
-                                                audio.type="MP3";
-                                                let child=$("<tr><td style='position:relative;'><span><i class='fa fa-check'></i> </span>"+audio.type+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b></td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                        if (audio.filesize == "null" || (audio.filesize / 1048576).toFixed(1) == 0.0) {
+                                            if (audio.type == "m4a") {
+                                                audio.type = "MP3";
+                                                let child = $("<tr><td style='position:relative;'><span><i class='fa fa-check'></i> </span>" + audio.type + "</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b></td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='" + audio.url + "'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                                 audioDOM.append(child);
                                             }
-                                            else 
-                                            {
-                                                let child=$("<tr><td>"+audio.type+"</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b></td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                            else {
+                                                let child = $("<tr><td>" + audio.type + "</td><td><b style='color:#c0c0c0;font-size:12px;letter-spacing:2px;'>NA</b></td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='" + audio.url + "'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                                 audioDOM.append(child);
                                             }
                                         }
-                                        else 
-                                        {
-                                            if(audio.type=="m4a")
-                                            {
-                                                audio.type="MP3";
-                                                let child=$("<tr><td style='position:relative;'><span><i class='fa fa-check'></i> </span>"+audio.type+"</td><td>"+(audio.filesize/1048576).toFixed(1)+" MB</td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                        else {
+                                            if (audio.type == "m4a") {
+                                                audio.type = "MP3";
+                                                let child = $("<tr><td style='position:relative;'><span><i class='fa fa-check'></i> </span>" + audio.type + "</td><td>" + (audio.filesize / 1048576).toFixed(1) + " MB</td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='" + audio.url + "'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                                 audioDOM.append(child);
                                             }
-                                            else 
-                                            {
-                                                let child=$("<tr><td>"+audio.type+"</td><td>"+(audio.filesize/1048576).toFixed(1)+" MB</td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='"+audio.url+"'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
+                                            else {
+                                                let child = $("<tr><td>" + audio.type + "</td><td>" + (audio.filesize / 1048576).toFixed(1) + " MB</td><td><form action='/download-mp3' method='get'><input name='url' type='hidden' value='" + audio.url + "'><button type='button' style='cursor:pointer;outline:none;border:none;background: transparent;'><a class='link' >download</a></button></form></td></tr>");
                                                 audioDOM.append(child);
-                                            } 
+                                            }
                                         }
-                                    });   
+                                    });
                                 }
-                                else 
-                                {
-                                    let child=$("<tr><td style='font-weight:600;'>Sorry, audio is not available</td><td><a href='https://en.savefrom.net/'>Try This</a></td></tr>");
+                                else {
+                                    let child = $("<tr><td style='font-weight:600;'>Sorry, audio is not available</td><td><a href='https://en.savefrom.net/'>Try This</a></td></tr>");
                                     audioDOM.append(child);
                                 }
 
-                                $('.settings-button').on('click',function(){
-                                    $('.instruction-base').css('display','block');
+                                $('.settings-button').on('click', function () {
+                                    $('.instruction-base').css('display', 'block');
                                 });
 
-                                $('.settings-close-button').on('click',function(){
-                                    $('.instruction-base').css('display','none');
+                                $('.settings-close-button').on('click', function () {
+                                    $('.instruction-base').css('display', 'none');
                                 });
-                                
-                            
 
-                                $('.link').on('click',function(){
+
+
+                                $('.link').on('click', function () {
                                     music.play();
                                     $('.link').html('download');
-                                    $('.link').css({'color':'white','background':'green','box-shadow':'none'});
+                                    $('.link').css({ 'color': 'white', 'background': 'green', 'box-shadow': 'none' });
                                     $(this).html('Loading...');
-                                    $(this).css({'color':'green','background':'white','box-shadow':'0px 0px 12px 0px #d3d3d4'});
-                                    ajax_url=$(this).parent().siblings('input').val();
-                                    ajax_type=$(this).parents('form').attr('action');
+                                    $(this).css({ 'color': 'green', 'background': 'white', 'box-shadow': '0px 0px 12px 0px #d3d3d4' });
+                                    ajax_url = $(this).parent().siblings('input').val();
+                                    ajax_type = $(this).parents('form').attr('action');
                                     //AJAX for download Page
                                     $.ajax({
                                         type: "GET",
-                                        url:"",
-                                        success: function (response) 
-                                        {
-                                            second_request=true;
+                                        url: "",
+                                        success: function (response) {
+                                            second_request = true;
                                             $('.ajaxLoadContainer').empty();
                                             $('.ajaxLoadContainer').load('download.html');
                                         }
@@ -278,16 +244,15 @@ $(document).ready(function(){
                             }
                         });
                     }
-                    else 
-                    {
+                    else {
                         message('invalid LINK');
                         $('#ajaxSearchBtn').removeClass();
                         $('#ajaxSearchBtn').addClass("fa fa-search");
                         $('.ajaxSearch').attr("disabled", false);
                     }
 
-                    youCount=0;
-                } 
+                    youCount = 0;
+                }
             }
         });
     });
